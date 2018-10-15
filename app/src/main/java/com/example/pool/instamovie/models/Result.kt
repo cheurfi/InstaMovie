@@ -12,7 +12,7 @@ class Result {
     @SerializedName("genre_ids")
     var genreIds: List<Long>? = null
     @Expose
-    var id: Long? = null
+    var id: Long = -1
     @SerializedName("original_language")
     var originalLanguage: String? = null
     @SerializedName("original_title")

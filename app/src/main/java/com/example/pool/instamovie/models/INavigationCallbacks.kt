@@ -2,5 +2,5 @@ package com.example.pool.instamovie.models
 
 interface INavigationCallbacks {
 
-    fun onMovieItemClicked()
+    fun onMovieItemClicked(id:MovieItem)
 }

@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.pool.instamovie.R
 import com.example.pool.instamovie.models.INavigationCallbacks
+import com.example.pool.instamovie.models.MovieItem
 
-class MainActivity : AppCompatActivity(), INavigationCallbacks {
-
+class MainActivity : AppCompatActivity(), INavigationCallbacks
+{
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -18,11 +20,11 @@ class MainActivity : AppCompatActivity(), INavigationCallbacks {
                 .commit()
     }
 
-    override fun onMovieItemClicked() {
+    override fun onMovieItemClicked(movieItem:MovieItem) {
         supportFragmentManager
                 .beginTransaction()
                 .addToBackStack("")
-                .replace(R.id.container, MovieDetailFragment.newInstance(), "TAG2")
+                .replace(R.id.container, MovieDetailFragment.newInstance(movieItem), "TAG2")
                 .commit()
     }
 

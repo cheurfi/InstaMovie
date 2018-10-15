@@ -8,10 +8,11 @@ import com.example.pool.instamovie.R
 import com.example.pool.instamovie.models.INavigationCallbacks
 import com.example.pool.instamovie.models.MovieItem
 
-class InstamovieAdapter(val list: List<MovieItem>, val listener: INavigationCallbacks): RecyclerView.Adapter<InstaViewHolder>() {
+class InstamovieAdapter(val list: List<MovieItem>, val listener: INavigationCallbacks) : RecyclerView.Adapter<InstaViewHolder>() {
     override fun onBindViewHolder(holder: InstaViewHolder, position: Int) {
+        val movieItem = list[position]
         val imageBaseUrl = "https://image.tmdb.org/t/p/w500/"
-        holder.bind(imageBaseUrl + list[position].url, list[position].title, list[position].rating.toString(), listener = listener)
+        holder.bind(listener = listener, url = imageBaseUrl + movieItem.url, title = movieItem.title, rating = movieItem.rating.toString(), description = movieItem.description)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InstaViewHolder {

@@ -1,7 +1,10 @@
 package com.example.pool.instamovie.models
 
-class MovieItem (
+import java.io.Serializable
+
+class MovieItem(
         val url: String,
         val title: String,
-        val rating: Double
-)
+        val rating: Double,
+        val description: String
+) : Serializable

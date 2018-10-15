@@ -8,18 +8,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.pool.instamovie.R
-import com.example.pool.instamovie.SharedViewModel
 import com.example.pool.instamovie.adapters.InstamovieAdapter
 import com.example.pool.instamovie.models.INavigationCallbacks
 import com.example.pool.instamovie.models.MovieItem
 import com.example.pool.instamovie.network.MovieProvider
+import com.example.pool.instamovie.viewmodels.MovieListViewModel
 import kotlinx.android.synthetic.main.fragment_movie_list.*
 
-class MovieListFragment: Fragment() {
+class MovieListFragment : Fragment() {
 
     private val movieProvider = MovieProvider()
-    private lateinit var listener : INavigationCallbacks
-    private lateinit var sharedViewModel: SharedViewModel
+    private val movieListViewModel = MovieListViewModel(movieProvider)
+    lateinit var listener: INavigationCallbacks
 
     companion object {
         fun newInstance(): MovieListFragment {
@@ -32,15 +32,13 @@ class MovieListFragment: Fragment() {
         listener = context as INavigationCallbacks
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-        movieProvider.getMovieItems()
-                .flatMapIterable { it.results }
-                .map { MovieItem(it.posterPath, it.title, it.voteAverage) }
-                .toList()
-                .subscribe(this::displayItems, Throwable::printStackTrace)
+        movieListViewModel.getMovieList()
+                .subscribe { movieItems -> displayItems(movieItems) }
     }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_movie_list, container, false)
